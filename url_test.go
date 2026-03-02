@@ -74,3 +74,21 @@ func TestPort1(t *testing.T){
 		})
 	}
 }
+var stringtests = map[string]struct{
+		url string
+		str string
+	}{
+		"full url" : {"https://test.com/path","Sheme:https Host:test.com Path:path"},
+		"empty Sheme" : {"://test.com/path","Sheme: Host:test.com Path:path"},
+		"full url with http" : {"http://test.com/path","Sheme:http Host:test.com Path:path"},
+	}
+func TestString(t *testing.T){
+	for name,test := range stringtests{
+		t.Run(fmt.Sprintf("%s %s",name,test.url),func(t *testing.T) {
+		u,_ := Parse(test.url)
+		if got,expected := u.String(),test.str ; got != expected{
+			t.Errorf("got %q expected %q",u.String(),test.str)
+		}
+		})
+	}
+}
