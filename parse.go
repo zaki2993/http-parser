@@ -2,6 +2,7 @@ package url
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 type URL struct{
@@ -39,4 +40,7 @@ func Parse(urlpath string) (*URL,error){
 	j = j + 3 + i
 	sheme,host,path := urlpath[:i],urlpath[i+3:j],urlpath[j+1:]
 	return &URL{sheme,host,path},nil}
+}
+func (u *URL) String()string{
+	return fmt.Sprintf("Sheme:%s Host:%s Path:%s",u.Sheme,u.Host,u.Path)
 }
