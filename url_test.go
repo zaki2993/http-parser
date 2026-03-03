@@ -77,34 +77,31 @@ func TestPort1(t *testing.T){
 var stringtests = map[string]struct{
 		url string
 		str string
+		expectederr bool
 	}{
-		"full url" : {"https://test.com/path","Sheme:https Host:test.com Path:path"},
-		"empty Sheme" : {"://test.com/path","Sheme: Host:test.com Path:path"},
-		"full url with http" : {"http://test.com/path","Sheme:http Host:test.com Path:path"},
-		"no Sheme" : {"test.com/path",""},
-		"no Path" : {"https://test.com","Sheme:https Host:test.com Path:"},
+		"full url" : {"https://test.com/path","Sheme:https Host:test.com Path:path",false},
+		"empty Sheme" : {"://test.com/path","Sheme: Host:test.com Path:path",false},
+		"full url with http" : {"http://test.com/path","Sheme:http Host:test.com Path:path",false},
+		"no Sheme" : {"test.com/path","",true},
+		"no Path" : {"https://test.com","Sheme:https Host:test.com Path:",false},
 	}
 func TestString(t *testing.T){
 	for name,test := range stringtests{
 		t.Run(fmt.Sprintf("%s %s",name,test.url),func(t *testing.T) {
 		u,err := Parse(test.url)
-		if name == "no Path"{
-			if err != nil{
-				t.Fatal("expected err = nil")
-			}
-			if got,expected := u.String(), test.str; got != expected{
-				t.Errorf("\ngot %q\n expected %q",u.String(),test.str)
-			}
-			return
-		}
-		if name == "no Sheme"{
-			if err == nil{
-				t.Fatal("expected err != nil")
-			}
+		if test.expectederr{
 			if u != nil{
 				t.Fatal("expected url = nil")
 			}
+			if err == nil{
+				t.Fatal("expected err != nil")
+			}
 			return
+		}
+		if test.expectederr == false{
+			if err != nil{
+				t.Fatal("expecte err = nil")
+			}
 		}
 		if got,expected := u.String(),test.str ; got != expected{
 			t.Errorf("\ngot %q\n expected %q",u.String(),test.str)
