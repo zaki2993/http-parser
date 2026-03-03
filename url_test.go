@@ -52,12 +52,13 @@ var tests = map[string]struct{
 		"Without a port number" : {"test.com","test.com",""},
 		"IP with a port number" : {"1.2.3:8080","1.2.3","8080"},
 		"IP without a port number" : {"1.2.3","1.2.3",""},
+
 	}
 
 func TestHost(t *testing.T){
 	for name,test := range tests{
 		t.Run(fmt.Sprintf("%s %s",name,test.host),func(t *testing.T) {
-			u := &URL{Host: test.host}
+			u := &URL{Host: test.in}
 			if got,expected := u.hostName(),test.host ; got != expected{
 				t.Errorf("got %q expected %q",u.hostName(),test.host)
 			}

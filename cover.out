@@ -1,7 +1,7 @@
 mode: set
 github.com/zaki/url/parse.go:13.33,16.12 3 1
 github.com/zaki/url/parse.go:16.12,18.3 1 1
-github.com/zaki/url/parse.go:19.2,19.18 1 0
+github.com/zaki/url/parse.go:19.2,19.18 1 1
 github.com/zaki/url/parse.go:21.29,24.12 3 1
 github.com/zaki/url/parse.go:24.12,26.3 1 1
 github.com/zaki/url/parse.go:27.2,27.19 1 1
