@@ -13,7 +13,7 @@ func ExampleParse() {
 			log.Fatal(err)
 		}
 		u.Sheme = "http"
-		fmt.Print(u.String())
+		fmt.Print(u)
     // Output:
     // Sheme:http Host:zaki.com Path:path
 }

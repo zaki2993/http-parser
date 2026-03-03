@@ -47,7 +47,7 @@ var tests = map[string]struct{
 		host string
 		port string
 	}{
-		"With a port number" : {"test.com:080","test.com","8080"},
+		"With a port number" : {"test.com:8080","test.com","8080"},
 		"With an empty port" : {"test.com:","test.com",""},
 		"Without a port number" : {"test.com","test.com",""},
 		"IP with a port number" : {"1.2.3:8080","1.2.3","8080"},
@@ -81,13 +81,33 @@ var stringtests = map[string]struct{
 		"full url" : {"https://test.com/path","Sheme:https Host:test.com Path:path"},
 		"empty Sheme" : {"://test.com/path","Sheme: Host:test.com Path:path"},
 		"full url with http" : {"http://test.com/path","Sheme:http Host:test.com Path:path"},
+		"no Sheme" : {"test.com/path",""},
+		"no Path" : {"https://test.com","Sheme:https Host:test.com Path:"},
 	}
 func TestString(t *testing.T){
 	for name,test := range stringtests{
 		t.Run(fmt.Sprintf("%s %s",name,test.url),func(t *testing.T) {
-		u,_ := Parse(test.url)
+		u,err := Parse(test.url)
+		if name == "no Path"{
+			if err != nil{
+				t.Fatal("expected err = nil")
+			}
+			if got,expected := u.String(), test.str; got != expected{
+				t.Errorf("\ngot %q\n expected %q",u.String(),test.str)
+			}
+			return
+		}
+		if name == "no Sheme"{
+			if err == nil{
+				t.Fatal("expected err != nil")
+			}
+			if u != nil{
+				t.Fatal("expected url = nil")
+			}
+			return
+		}
 		if got,expected := u.String(),test.str ; got != expected{
-			t.Errorf("got %q expected %q",u.String(),test.str)
+			t.Errorf("\ngot %q\n expected %q",u.String(),test.str)
 		}
 		})
 	}

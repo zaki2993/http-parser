@@ -1,0 +1,13 @@
+mode: set
+github.com/zaki/url/parse.go:13.33,16.12 3 1
+github.com/zaki/url/parse.go:16.12,18.3 1 1
+github.com/zaki/url/parse.go:19.2,19.18 1 0
+github.com/zaki/url/parse.go:21.29,24.12 3 1
+github.com/zaki/url/parse.go:24.12,26.3 1 1
+github.com/zaki/url/parse.go:27.2,27.19 1 1
+github.com/zaki/url/parse.go:30.40,32.12 2 1
+github.com/zaki/url/parse.go:32.12,34.3 1 1
+github.com/zaki/url/parse.go:35.2,36.13 2 1
+github.com/zaki/url/parse.go:36.13,39.3 2 1
+github.com/zaki/url/parse.go:39.7,42.35 3 1
+github.com/zaki/url/parse.go:44.29,46.2 1 1
